@@ -1,0 +1,96 @@
+---
+import Layout from '../components/Layout.astro';
+import { WORLD1 } from '../levels/world1';
+import { isLevelImplemented } from '../engine/levelLoader';
+
+const title = 'Mô Phỏng AI – Học thuật toán và AI bằng cách chơi';
+const description =
+  'Web game 2D tiếng Việt giúp học sinh THCS, THPT hiểu thuật toán và trí tuệ nhân tạo qua 8 màn chơi: BFS/DFS, A*, gradient descent, K-means, k-NN, cây quyết định, mạng nơ-ron và Q-learning.';
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Mô Phỏng AI',
+    url: 'https://mophongai.io.vn/',
+    inLanguage: 'vi-VN',
+    description,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: 'Mô Phỏng AI',
+    url: 'https://mophongai.io.vn/',
+    areaServed: 'VN',
+  },
+];
+const levels = WORLD1.map((level) => ({ ...level, implemented: isLevelImplemented(level.id) }));
+---
+
+<Layout {title} {description} jsonLd={jsonLd}>
+  <section class="hero">
+    <div>
+      <span class="chip">Miễn phí · Không cần đăng nhập · Chạy trên máy của bạn</span>
+      <h1>Học AI bằng cách… chơi</h1>
+      <p>
+        Mô Phỏng AI là sân chơi 2D tiếng Việt, nơi bạn điều khiển chú robot Bi-Bốp để khám phá các thuật toán
+        và ý tưởng của trí tuệ nhân tạo: tìm đường, leo dốc, gom cụm, hỏi hàng xóm, trồng cây quyết định,
+        nuôi mạng nơ-ron và dạy robot tự học.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/thuat-toan/bfs-dfs/">Chơi màn 1 →</a>
+        <a class="btn" href="/lo-trinh/">Xem lộ trình 8 màn</a>
+      </div>
+    </div>
+    <div class="hero__art" aria-hidden="true">🤖🏝️</div>
+  </section>
+
+  <section aria-labelledby="how-title" style="margin-top:2rem">
+    <h2 id="how-title">Chơi thế nào?</h2>
+    <div class="feature-grid">
+      <article class="feature">
+        <h3>1. Đọc nhiệm vụ</h3>
+        <p>Mỗi màn dạy đúng một khái niệm, kèm cốt truyện ngắn và mục tiêu rõ ràng.</p>
+      </article>
+      <article class="feature">
+        <h3>2. Chỉnh tham số & bấm Chạy</h3>
+        <p>Thay đổi cách robot “suy nghĩ”, xem mô phỏng chạy, tua lại và đi từng bước.</p>
+      </article>
+      <article class="feature">
+        <h3>3. Hiểu vì sao</h3>
+        <p>Mỗi bước có lời giải thích tiếng Việt. Cuối màn có câu hỏi kiểm tra hiểu bài trước khi nhận sao.</p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="levels-title" style="margin-top:2rem">
+    <h2 id="levels-title">Thế giới 1: Đảo Robot Thông Minh</h2>
+    <ul class="level-list">
+      {levels.map((level) => (
+        <li>
+          {level.implemented ? (
+            <a class="level-card" href={`/thuat-toan/${level.slug}/`}>
+              <strong>Màn {level.order}: {level.title}</strong>
+              <span>{level.concept}</span>
+              <span>{level.blurb}</span>
+            </a>
+          ) : (
+            <div class="level-card" aria-disabled="true">
+              <strong>Màn {level.order}: {level.title}</strong>
+              <span>{level.concept}</span>
+              <span>Sắp mở</span>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-labelledby="teacher-title" style="margin-top:2rem">
+    <h2 id="teacher-title">Dành cho giáo viên</h2>
+    <p>
+      Trò chơi không thu thập dữ liệu cá nhân, không cần tài khoản. Tiến trình lưu ngay trên máy học sinh.
+      Bạn có thể dùng nút <strong>“Mở khóa tự do”</strong> trong trang lộ trình để cho cả lớp xem trước mọi màn.
+    </p>
+    <p><a class="btn" href="/giao-vien/">Hướng dẫn cho giáo viên</a></p>
+  </section>
+</Layout>

@@ -1,0 +1,54 @@
+---
+import Layout from '../components/Layout.astro';
+
+const title = 'Chính sách quyền riêng tư | Mô Phỏng AI';
+const description =
+  'Mô Phỏng AI không thu thập thông tin cá nhân, không dùng cookie theo dõi. Tiến trình chơi chỉ lưu trên thiết bị của bạn bằng localStorage.';
+---
+
+<Layout {title} {description}>
+  <div class="level-hero">
+    <h1>Chính sách quyền riêng tư</h1>
+    <p>Cập nhật: 20/10/2026 · Áp dụng cho toàn bộ trang mophongai.io.vn</p>
+  </div>
+
+  <article class="prose">
+    <h2>Chúng tôi không thu thập gì về bạn</h2>
+    <p>
+      Mô Phỏng AI không có chức năng đăng nhập, không hỏi tên, tuổi, email hay trường học. Trang không dùng cookie
+      và không nhúng công cụ theo dõi của bên thứ ba (quảng cáo, mạng xã hội, bản đồ…).
+    </p>
+
+    <h2>Dữ liệu lưu trên thiết bị của bạn</h2>
+    <p>
+      Tiến trình chơi (số sao, câu hỏi đã trả lời đúng, tùy chọn giảm chuyển động) được lưu trong
+      <code>localStorage</code> của chính trình duyệt bạn đang dùng. Dữ liệu này không được gửi lên máy chủ nào và
+      không thể truy cập từ thiết bị khác. Bạn có thể xoá bằng cách xoá dữ liệu trang trong phần cài đặt trình duyệt.
+    </p>
+
+    <h2>Mô phỏng chạy ngay trên máy bạn</h2>
+    <p>
+      Mọi tính toán của thuật toán diễn ra trong trình duyệt. Khi các chế độ lập trình nâng cao (kéo thả khối, Python)
+      được bật, mã của học sinh vẫn chỉ chạy trong một Web Worker trên máy của bạn.
+    </p>
+
+    <h2>Máy chủ và nhật ký</h2>
+    <p>
+      Trang được phục vụ dưới dạng tệp tĩnh trên Cloudflare. Nhà cung cấp hạ tầng có thể ghi nhật ký kỹ thuật
+      (địa chỉ IP, thời điểm truy cập) theo chính sách của họ; chúng tôi không dùng các nhật ký này để nhận diện cá nhân
+      và không kết hợp với bất kỳ dữ liệu nào khác.
+    </p>
+
+    <h2>Trẻ em và nhà trường</h2>
+    <p>
+      Vì không thu thập dữ liệu cá nhân, trang phù hợp để dùng cho học sinh THCS, THPT mà không cần phụ huynh cung cấp
+      thông tin. Giáo viên có thể yêu cầu học sinh xoá dữ liệu tiến trình bất kỳ lúc nào bằng cách xoá dữ liệu trang.
+    </p>
+
+    <h2>Liên hệ</h2>
+    <p>
+      Nếu bạn phát hiện vấn đề về quyền riêng tư, hãy mở một issue trên kho mã nguồn của dự án; chúng tôi sẽ phản hồi
+      sớm nhất có thể.
+    </p>
+  </article>
+</Layout>

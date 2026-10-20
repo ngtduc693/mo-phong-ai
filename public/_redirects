@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects
+# (Astro đã tự xử lý pretty URL; đây là các lối tắt tiện dụng)
+
+/index.html / 301
+/chinh-sach /chinh-sach-quyen-rieng-tu/ 301
+/map /lo-trinh/ 301

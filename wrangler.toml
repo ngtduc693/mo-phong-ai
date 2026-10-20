@@ -1,0 +1,4 @@
+# Cloudflare Pages - output tinh cua Astro nam o dist/
+name = "mophongai"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-10-20"

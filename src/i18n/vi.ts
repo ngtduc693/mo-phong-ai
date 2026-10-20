@@ -1,0 +1,87 @@
+/**
+ * Chuỗi giao diện tiếng Việt (mặc định).
+ * Muốn thêm tiếng Anh: tạo en.ts cùng kiểu, khai báo trong index.ts.
+ * Nội dung bài học của từng màn nằm trong cấu hình màn (levels/) vì đó là dữ liệu màn chơi.
+ */
+export const vi = {
+  'site.name': 'Mô Phỏng AI',
+  'site.tagline': 'Học AI bằng cách chơi',
+  'nav.home': 'Trang chủ',
+  'nav.map': 'Lộ trình',
+  'nav.teacher': 'Giáo viên',
+  'nav.privacy': 'Quyền riêng tư',
+  'nav.skip': 'Tới nội dung chính',
+
+  'common.loading': 'Đang nạp…',
+  'common.play': 'Chơi ngay',
+  'common.close': 'Đóng',
+  'common.back': 'Quay lại',
+  'common.continue': 'Tiếp tục',
+  'common.retry': 'Thử lại',
+
+  'playback.play': 'Chạy',
+  'playback.pause': 'Tạm dừng',
+  'playback.step': 'Bước tiếp',
+  'playback.back': 'Lùi 1 bước',
+  'playback.reset': 'Đặt lại',
+  'playback.speed': 'Tốc độ',
+  'playback.progress': 'Bước {i}/{n}',
+  'playback.idle': 'Sẵn sàng',
+
+  'panel.challenge': 'Thử thách',
+  'panel.params': 'Tham số',
+  'panel.mission': 'Nhiệm vụ',
+  'panel.goal': 'Mục tiêu',
+  'panel.explain': 'Chuyện gì đang xảy ra?',
+  'panel.explainIdle': 'Bấm "Chạy" để Bi-Bốp bắt đầu suy nghĩ, hoặc "Bước tiếp" để đi từng bước.',
+  'panel.hints': 'Gợi ý',
+  'panel.hint1': 'Mở gợi ý 1',
+  'panel.hint2': 'Mở gợi ý 2',
+  'panel.hint3': 'Mở gợi ý 3',
+  'panel.quiz': 'Kiểm tra hiểu bài',
+  'panel.quizIntro': 'Trả lời đúng các câu hỏi để nhận sao. Sai cũng không sao — đọc giải thích là hiểu.',
+  'panel.quizCheck': 'Kiểm tra đáp án',
+  'panel.quizCorrect': 'Chính xác!',
+  'panel.quizWrong': 'Chưa đúng, đọc giải thích rồi thử lại nhé.',
+  'panel.lessons': 'Em vừa học được gì',
+  'panel.stars': 'Sao của bạn',
+  'panel.chart': 'Số ô đã xét theo từng bước',
+  'panel.chartVisited': 'Đã xét',
+  'panel.chartOpened': 'Đã phát hiện',
+  'panel.statsVisited': 'Ô đã xét',
+  'panel.statsOpened': 'Ô đã phát hiện',
+  'panel.statsPath': 'Độ dài đường đi',
+  'panel.frontier': 'Đang chờ',
+
+  'result.win': 'Hoàn thành!',
+  'result.lose': 'Chưa tới đích',
+  'result.limit': 'Bi-Bốp mệt rồi!',
+  'result.starsEarned': 'Bạn nhận được {n}/3 sao',
+  'result.newBest': 'Kỷ lục mới!',
+  'result.next': 'Màn tiếp theo',
+  'result.nextLocked': 'Màn tiếp theo đang được xây',
+  'result.backToMap': 'Về bản đồ',
+  'result.playAgain': 'Chơi lại',
+  'result.keepExploring': 'Xem lại từng bước',
+
+  'map.title': 'Đảo Robot Thông Minh',
+  'map.subtitle': 'Chọn một trạm để bắt đầu. Màn sau mở khi bạn qua màn trước.',
+  'map.locked': 'Chưa mở',
+  'map.unlockAll': 'Mở khóa tự do (giáo viên)',
+  'map.unlockAllHint': 'Dành cho giáo viên muốn cho học sinh xem trước mọi màn.',
+  'map.enter': 'Vào màn',
+  'map.soon': 'Sắp mở',
+  'map.menuStart': 'Bắt đầu',
+  'map.menuHint': 'Dùng chuột/chạm hoặc phím mũi tên + Enter để chọn trạm.',
+
+  'settings.sound': 'Âm thanh',
+  'settings.reduceMotion': 'Giảm chuyển động',
+  'storage.blocked': 'Trình duyệt đang chặn lưu trữ — bạn vẫn chơi được, nhưng tiến trình sẽ không được lưu.',
+
+  'game.loadingLevel': 'Đang chuẩn bị đảo Robot…',
+  'game.loadError': 'Không nạp được trò chơi. Hãy thử tải lại trang.',
+  'game.canvasLabel': 'Bản đồ màn chơi. Dùng phím mũi tên để di chuyển con trỏ, Enter hoặc Space để áp dụng công cụ đang chọn.',
+  'game.noJs': 'Trò chơi cần JavaScript. Phần hướng dẫn phía trên vẫn đọc được bình thường.',
+} as const;
+
+export type TranslationKey = keyof typeof vi;

@@ -1,0 +1,28 @@
+# Mô Phỏng AI (https://mophongai.io.vn)
+
+> Web game 2D tiếng Việt giúp học sinh THCS/THPT hiểu thuật toán và trí tuệ nhân tạo qua 8 màn chơi.
+> Mỗi màn dạy đúng một khái niệm, có mô phỏng chạy ngay trên trình duyệt, lời giải thích từng bước,
+> câu hỏi kiểm tra hiểu bài và hệ thống sao. Không cần đăng nhập, không thu thập dữ liệu cá nhân.
+
+## Trang chính
+- [Trang chủ](https://mophongai.io.vn/): giới thiệu cách học AI bằng cách chơi
+- [Lộ trình 8 màn](https://mophongai.io.vn/lo-trinh/): Đảo Robot Thông Minh
+- [Dành cho giáo viên](https://mophongai.io.vn/giao-vien/): hướng dẫn dùng trong lớp học
+- [Chính sách quyền riêng tư](https://mophongai.io.vn/chinh-sach-quyen-rieng-tu/)
+
+## Màn chơi đã mở
+- [BFS và DFS: robot tìm đường](https://mophongai.io.vn/thuat-toan/bfs-dfs/): hàng đợi, ngăn xếp, vì sao BFS cho đường ngắn nhất
+
+## Khái niệm trong lộ trình (sắp mở)
+- A* và hàm heuristic (a-sao)
+- Gradient descent và learning rate (gradient-descent)
+- K-means clustering (k-means)
+- k-NN và biên quyết định (k-nn)
+- Cây quyết định, entropy, Gini (cay-quyet-dinh)
+- Perceptron và mạng nơ-ron 2D (mang-no-ron)
+- Q-learning (q-learning)
+
+## Ghi chú cho máy đọc
+- Ngôn ngữ: tiếng Việt (vi-VN). Toàn bộ nội dung lý thuyết đọc được khi tắt JavaScript.
+- Trò chơi dùng Phaser 3 và chỉ tải khi người học bấm "Chơi".
+- Mã nguồn mở; hình ảnh minh hoạ tự tạo, không dùng tài sản có bản quyền của bên khác.

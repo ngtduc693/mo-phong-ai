@@ -1,0 +1,17 @@
+---
+import Layout from '../components/Layout.astro';
+
+const title = 'Không tìm thấy trang | Mô Phỏng AI';
+const description = 'Trang bạn tìm không tồn tại. Hãy quay lại lộ trình 8 màn chơi.';
+---
+
+<Layout {title} {description} noindex={true}>
+  <div class="level-hero">
+    <h1>404 — Bi-Bốp đi lạc rồi!</h1>
+    <p>Trang này không tồn tại. Có lẽ robot đã rẽ nhầm ngõ cụt.</p>
+    <p>
+      <a class="btn btn--primary" href="/lo-trinh/">Về lộ trình 8 màn</a>
+      <a class="btn" href="/">Về trang chủ</a>
+    </p>
+  </div>
+</Layout>

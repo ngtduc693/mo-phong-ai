@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Không cần crawl các tệp build có hash
+Disallow: /_astro/
+
+Sitemap: https://mophongai.io.vn/sitemap.xml

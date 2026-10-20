@@ -1,0 +1,93 @@
+---
+import Layout from '../components/Layout.astro';
+import { WORLD1 } from '../levels/world1';
+import { isLevelImplemented } from '../engine/levelLoader';
+
+const title = 'Lộ trình 8 màn: Đảo Robot Thông Minh | Mô Phỏng AI';
+const description =
+  'Lộ trình học AI qua 8 màn chơi: tìm kiếm BFS/DFS, A*, gradient descent, K-means, k-NN, cây quyết định, mạng nơ-ron và Q-learning. Mỗi màn một khái niệm, có câu hỏi kiểm tra hiểu bài.';
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Lộ trình Mô Phỏng AI – Thế giới 1',
+    itemListElement: WORLD1.map((level, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: `${level.title} – ${level.concept}`,
+      url: isLevelImplemented(level.id)
+        ? `https://mophongai.io.vn/thuat-toan/${level.slug}/`
+        : 'https://mophongai.io.vn/lo-trinh/',
+    })),
+  },
+];
+---
+
+<Layout {title} {description} jsonLd={jsonLd}>
+  <div class="level-hero">
+    <h1>Lộ trình: Đảo Robot Thông Minh</h1>
+    <p>
+      Tám trạm, tám khái niệm. Bạn có thể đi theo thứ tự, hoặc dùng nút “Mở khóa tự do” để xem trước mọi màn
+      (dành cho giáo viên). Tiến trình lưu trên chính thiết bị của bạn, không cần tài khoản.
+    </p>
+  </div>
+
+  <section aria-labelledby="map-title">
+    <h2 id="map-title">Bản đồ hòn đảo</h2>
+    <p class="muted">
+      Bản đồ tương tác dùng chuột/chạm hoặc phím mũi tên + Enter. Bản đồ cần tải thêm một lần, nên chỉ mở khi bạn
+      muốn xem — danh sách bên dưới luôn dùng được ngay.
+    </p>
+    <p>
+      <button class="btn btn--primary" id="show-map" type="button">🗺️ Mở bản đồ tương tác</button>
+    </p>
+    <div id="map-stage" class="map-stage" role="application" aria-label="Bản đồ 8 trạm của Đảo Robot" tabindex="0" hidden></div>
+    <div id="map-toolbar" class="map-toolbar"></div>
+  </section>
+
+  <section aria-labelledby="list-title" style="margin-top:2rem">
+    <h2 id="list-title">Danh sách 8 màn</h2>
+    <ul class="level-list">
+      {WORLD1.map((level) => (
+        <li>
+          {isLevelImplemented(level.id) ? (
+            <a class="level-card" href={`/thuat-toan/${level.slug}/`}>
+              <strong>Màn {level.order}: {level.title}</strong>
+              <span>{level.concept}</span>
+              <span>{level.blurb}</span>
+            </a>
+          ) : (
+            <div class="level-card" aria-disabled="true">
+              <strong>Màn {level.order}: {level.title}</strong>
+              <span>{level.concept}</span>
+              <span>Sắp mở — Bi-Bốp đang xây trạm này.</span>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+<script>
+  const mapBtn = document.getElementById('show-map');
+  const stage = document.getElementById('map-stage');
+  const toolbar = document.getElementById('map-toolbar');
+
+  mapBtn?.addEventListener('click', async () => {
+    if (!stage || !toolbar) return;
+    mapBtn.setAttribute('disabled', 'true');
+    mapBtn.textContent = 'Đang nạp bản đồ…';
+    stage.removeAttribute('hidden');
+    try {
+      const { startMapPage } = await import('../ui/mapRunner');
+      await startMapPage(stage, toolbar);
+      mapBtn.remove();
+      stage.focus();
+    } catch (error) {
+      console.error(error);
+      mapBtn.removeAttribute('disabled');
+      mapBtn.textContent = 'Không nạp được bản đồ — thử lại';
+    }
+  });
+</script>

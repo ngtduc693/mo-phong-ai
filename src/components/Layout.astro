@@ -1,0 +1,101 @@
+---
+import '../ui/styles/global.css';
+import { t } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  jsonLd?: Array<Record<string, unknown>>;
+  noindex?: boolean;
+}
+
+const { title, description, canonical, jsonLd = [], noindex = false } = Astro.props;
+const site = Astro.site ?? new URL('https://mophongai.io.vn');
+const canonicalUrl = new URL(canonical ?? Astro.url.pathname, site).toString();
+const ogImage = new URL('/og-default.png', site).toString();
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = [
+  { href: '/', label: t('nav.home') },
+  { href: '/lo-trinh/', label: t('nav.map') },
+  { href: '/giao-vien/', label: t('nav.teacher') },
+  { href: '/chinh-sach-quyen-rieng-tu/', label: t('nav.privacy') },
+];
+
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href.replace(/\/$/, ''));
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="vi" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0f7d59" />
+    {noindex ? <meta name="robots" content="noindex" /> : null}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mô Phỏng AI" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd.map((data) => (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />
+    ))}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('nav.skip')}</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="/">
+          <span class="brand__badge" aria-hidden="true">🤖</span>
+          {t('site.name')}
+        </a>
+        <nav class="site-nav" aria-label="Điều hướng chính">
+          {navItems.map((item) => (
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="page">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p style="margin:0">© {new Date().getFullYear()} Mô Phỏng AI · Học AI bằng cách chơi · mophongai.io.vn</p>
+        <p style="margin:0">
+          <a href="/chinh-sach-quyen-rieng-tu/">Quyền riêng tư</a> ·
+          <a href="/lo-trinh/">Lộ trình</a> ·
+          <a href="/giao-vien/">Giáo viên</a>
+        </p>
+        <label class="switch" for="pref-reduce-motion" style="font-weight:600">
+          <input type="checkbox" id="pref-reduce-motion" />
+          Giảm chuyển động
+        </label>
+      </div>
+    </footer>
+    <script>
+      import { loadProgress, setReduceMotion } from '../engine/storage';
+      const box = document.getElementById('pref-reduce-motion') as HTMLInputElement | null;
+      const apply = (on: boolean) => document.body.classList.toggle('reduce-motion', on);
+      if (box) {
+        const stored = loadProgress().reduceMotion;
+        box.checked = stored;
+        apply(stored);
+        box.addEventListener('change', () => {
+          setReduceMotion(box.checked);
+          apply(box.checked);
+        });
+      }
+    </script>
+  </body>
+</html>

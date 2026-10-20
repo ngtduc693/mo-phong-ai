@@ -1,0 +1,51 @@
+---
+import Layout from '../components/Layout.astro';
+
+const title = 'Dành cho giáo viên | Mô Phỏng AI';
+const description =
+  'Hướng dẫn dùng Mô Phỏng AI trong lớp học: không cần đăng nhập, không thu thập dữ liệu học sinh, chạy trên máy của trường, có nút mở khóa màn cho cả lớp.';
+---
+
+<Layout {title} {description}>
+  <div class="level-hero">
+    <h1>Dành cho giáo viên</h1>
+    <p>Mô Phỏng AI được thiết kế để dùng trong lớp học mà không cần cài đặt, không cần tài khoản học sinh.</p>
+  </div>
+
+  <article class="prose">
+    <h2>Điều kiện tối thiểu</h2>
+    <ul>
+      <li>Trình duyệt hiện đại (Chrome, Edge, Firefox, Safari) trên máy tính hoặc điện thoại.</li>
+      <li>Không cần GPU rời: game tự chuyển sang Canvas nếu máy không hỗ trợ WebGL.</li>
+      <li>Không bắt buộc Internet sau khi trang đã tải xong một lần (trừ khi dùng chế độ xoá cache).</li>
+    </ul>
+
+    <h2>Dùng trong tiết học 45 phút</h2>
+    <ol>
+      <li>Chiếu hoặc cho học sinh mở trang lộ trình, bấm “Mở khóa tự do” nếu muốn cả lớp vào cùng một màn.</li>
+      <li>Mỗi màn có phần lý thuyết ngắn đọc trước, sau đó học sinh bấm “Chơi” để mô phỏng.</li>
+      <li>Khuyến khích học sinh dùng nút “Bước tiếp” và đọc phần “Chuyện gì đang xảy ra?” thay vì chỉ bấm Chạy.</li>
+      <li>Cuối màn, học sinh phải trả lời câu hỏi hiểu bài mới nhận được sao — dùng làm mốc kiểm tra nhanh.</li>
+    </ol>
+
+    <h2>Tiến trình của học sinh</h2>
+    <p>
+      Sao và câu trả lời chỉ lưu trong <code>localStorage</code> của máy học sinh. Muốn thu kết quả, hãy để học sinh
+      chụp màn hình phần “Sao của bạn”; giáo viên cũng có thể yêu cầu học sinh đọc lại phần “Em vừa học được gì”.
+      Trang giáo viên có thêm bảng theo dõi và xuất tệp ở giai đoạn phát triển tiếp theo.
+    </p>
+
+    <h2>Quyền riêng tư</h2>
+    <p>
+      Không có đăng nhập, không thu thập thông tin cá nhân, không dùng cookie theo dõi của bên thứ ba.
+      Xem <a href="/chinh-sach-quyen-rieng-tu/">chính sách quyền riêng tư</a>.
+    </p>
+
+    <h2>Gợi ý sư phạm</h2>
+    <ul>
+      <li>Với lớp THCS, bắt đầu bằng màn 1 và màn 3 vì minh hoạ trực quan, dễ liên hệ đời sống.</li>
+      <li>Luôn hỏi “vì sao” trước khi hỏi “kết quả”: ví dụ “vì sao BFS tìm được đường ngắn nhất?”.</li>
+      <li>Cho học sinh thử tình huống bẫy ở mức Khó để thấy giới hạn của từng thuật toán.</li>
+    </ul>
+  </article>
+</Layout>

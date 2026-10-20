@@ -1,0 +1,156 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import { loadLevelConfig } from '../../engine/levelLoader';
+import { levelBySlug } from '../../levels/world1';
+
+interface Props {
+  entry: CollectionEntry<'levels'>;
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection('levels');
+  const paths = [];
+  for (const entry of entries) {
+    const config = await loadLevelConfig(entry.data.levelId);
+    paths.push({ params: { slug: config.slug }, props: { entry } });
+  }
+  return paths;
+}
+
+const { entry } = Astro.props;
+const config = await loadLevelConfig(entry.data.levelId);
+const { Content } = await render(entry);
+const world = levelBySlug(config.slug);
+
+const title = `${config.title}: ${config.concept} | Mô Phỏng AI`;
+const description = entry.data.description;
+const pageUrl = new URL(`/thuat-toan/${config.slug}/`, Astro.site ?? 'https://mophongai.io.vn').toString();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    name: `${config.title} – ${config.concept}`,
+    description,
+    url: pageUrl,
+    inLanguage: 'vi-VN',
+    isAccessibleForFree: true,
+    learningResourceType: 'Trò chơi giáo dục',
+    educationalLevel: 'THCS, THPT',
+    teaches: config.concept,
+    about: entry.data.keywords,
+    provider: {
+      '@type': 'Organization',
+      name: 'Mô Phỏng AI',
+      url: 'https://mophongai.io.vn/',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: entry.data.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: 'https://mophongai.io.vn/' },
+      { '@type': 'ListItem', position: 2, name: 'Lộ trình', item: 'https://mophongai.io.vn/lo-trinh/' },
+      { '@type': 'ListItem', position: 3, name: config.title, item: pageUrl },
+    ],
+  },
+];
+---
+
+<Layout {title} {description} jsonLd={jsonLd}>
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="/">Trang chủ</a></li>
+      <li><a href="/lo-trinh/">Lộ trình</a></li>
+      <li aria-current="page">{config.title}</li>
+    </ol>
+  </nav>
+
+  <div class="level-hero">
+    <h1>{config.title}: {config.concept}</h1>
+    <p><strong>Màn {config.order}</strong>{world ? ` · ${world.blurb}` : ''}</p>
+  </div>
+
+  <article class="prose">
+    <Content />
+
+    <h2>Các bước thuật toán</h2>
+    <ol>
+      {entry.data.steps.map((step) => <li>{step}</li>)}
+    </ol>
+
+    <h2>Em sẽ học được gì?</h2>
+    <ul>
+      {config.lessons.map((lesson) => <li>{lesson}</li>)}
+    </ul>
+
+    <h2>Câu hỏi thường gặp</h2>
+    <div class="faq">
+      {entry.data.faq.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </article>
+
+  <section class="game-section" id="choi" aria-labelledby="play-title">
+    <div class="game-section__head">
+      <h2 id="play-title">Chơi màn {config.order}: {config.title}</h2>
+      <span class="chip">Miễn phí · Không cần đăng nhập</span>
+    </div>
+
+    <div class="game-start" id="game-start">
+      <p><strong>Nhiệm vụ:</strong> {config.mission}</p>
+      <p><strong>Mục tiêu:</strong> {config.goal}</p>
+      <button class="btn btn--primary" id="start-game" type="button" data-level={config.id}>
+        ▶ Chơi ngay
+      </button>
+      <p class="muted">
+        Trò chơi chỉ được tải khi bạn bấm nút, để trang mở nhanh trên máy yếu của trường.
+        Tiến trình được lưu trên chính thiết bị của bạn.
+      </p>
+      <noscript>
+        <p>Bạn cần bật JavaScript để chơi. Toàn bộ phần hướng dẫn phía trên vẫn đọc được bình thường.</p>
+      </noscript>
+    </div>
+
+    <div id="game-app" data-level-id={config.id} hidden></div>
+  </section>
+</Layout>
+
+<script>
+  const startBtn = document.getElementById('start-game') as HTMLButtonElement | null;
+  const startBox = document.getElementById('game-start');
+  const app = document.getElementById('game-app');
+
+  startBtn?.addEventListener('click', async () => {
+    if (!app) return;
+    const levelId = app.dataset.levelId ?? 'bfs-dfs';
+    startBtn.disabled = true;
+    startBtn.textContent = 'Đang nạp trò chơi…';
+    startBox?.setAttribute('hidden', '');
+    app.removeAttribute('hidden');
+    app.innerHTML = '<p class="muted" style="padding:1rem">Đang chuẩn bị đảo Robot…</p>';
+    try {
+      const { startLevelPage } = await import('../../ui/levelRunner');
+      await startLevelPage(app, levelId);
+      app.focus();
+    } catch (error) {
+      console.error(error);
+      app.innerHTML =
+        '<p style="padding:1rem">Không nạp được trò chơi. Hãy thử tải lại trang, hoặc bật JavaScript rồi thử lại.</p>';
+    }
+  });
+</script>
